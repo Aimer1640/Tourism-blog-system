@@ -1,0 +1,135 @@
+<!DOCTYPE HTML>
+<html lang="zxx">
+
+<head>
+	<title>Hover Overlay Effects Responsive Widget Template :: w3layouts</title>
+	<!-- Meta-Tags -->
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta charset="utf-8">
+	<meta name="keywords" content="Hover Overlay Effects a Responsive Web Template, Bootstrap Web Templates, Flat Web Templates, Android Compatible Web Template, Smartphone Compatible Web Template, Free Webdesigns for Nokia, Samsung, LG, Sony Ericsson, Motorola Web Design">
+	<script>
+		addEventListener("load", function () {
+			setTimeout(hideURLbar, 0);
+		}, false);
+
+		function hideURLbar() {
+			window.scrollTo(0, 1);
+		}
+	</script>
+	<!-- //Meta-Tags -->
+	<!-- Stylesheets -->
+	<link href="__INDEX__/focuspeople/css/style.css" rel='stylesheet' type='text/css' />
+	<link href="__INDEX__/focuspeople/css/fontawesome-all.min.css" rel='stylesheet' type='text/css' />
+	<!--// Stylesheets -->
+	<!-- online fonts -->
+
+</head>
+
+<body>
+	<header>
+		<h1 class="text-center">Hover Overlay Effects</h1>
+	</header>
+	<!-- team -->
+
+	<div class="container">
+		{volist name="user" id="user"}
+
+		<div class="row">
+			<div class="col-4">
+				<form method="post" action="{:url('index/focus',array('id'=>$user.id))}">
+				<div class="team-member">
+					<div class="team-img">
+						<img src="__INDEX__/focuspeople/images/t1.jpg" alt="team member" class="img-fluid">
+						<div class="team-hover team-row1-active">
+							<div class="desk">
+								<h4>vehicula eleme!</h4>
+								<p>estibulum ac diam sit amet quam vehicula elementum.</p>
+							</div>
+							<div class="s-link">
+								<a href="#">
+									<i class="fab fa-facebook-f"></i>
+								</a>
+								<a href="#">
+									<i class="fab fa-twitter"></i>
+								</a>
+								<button type="submit" value="关注"></button>
+								<a href="{:url('index/focus',array('id'=>$user.id))}">
+									<i class="fab fa-google-plus-g"></i>
+								</a>
+							</div>
+						</div>
+					</div>
+					<div class="team-title team-title-active">
+						<h5>Martin Smith</h5>
+						<span>founder &amp; ceo</span>
+					</div>
+				</div>
+				</form>
+			</div>
+			<div class="col-4">
+				<div class="team-member">
+					<div class="team-img">
+						<img src="__INDEX__/focuspeople/images/t2.jpg" alt="team member" class="img-fluid">
+						<div class="team-hover">
+							<div class="desk">
+								<h4>vehicula eleme!</h4>
+								<p>estibulum ac diam sit amet quam vehicula elementum.</p>
+							</div>
+							<div class="s-link">
+								<a href="#">
+									<i class="fab fa-facebook-f"></i>
+								</a>
+								<a href="#">
+									<i class="fab fa-twitter"></i>
+								</a>
+								<a href="#">
+									<i class="fab fa-google-plus-g"></i>
+								</a>
+							</div>
+						</div>
+					</div>
+					<div class="team-title">
+						<h5>Franklin Harbet</h5>
+						<span>HR Manager</span>
+					</div>
+				</div>
+			</div>
+			<div class="col-4">
+				<div class="team-member">
+					<div class="team-img">
+						<img src="__INDEX__/focuspeople/images/t3.jpg" alt="team member" class="img-fluid">
+						<div class="team-hover">
+							<div class="desk">
+								<h4>vehicula eleme!</h4>
+								<p>estibulum ac diam sit amet quam vehicula elementum.</p>
+							</div>
+							<div class="s-link">
+								<a href="#">
+									<i class="fab fa-facebook-f"></i>
+								</a>
+								<a href="#">
+									<i class="fab fa-twitter"></i>
+								</a>
+								<a href="#">
+									<i class="fab fa-google-plus-g"></i>
+								</a>
+							</div>
+						</div>
+					</div>
+					<div class="team-title">
+						<h5>Linda Anderson</h5>
+						<span>Marketing Manager</span>
+					</div>
+				</div>
+			</div>
+		</div>
+		{/volist}
+
+	</div>
+
+	<!--copyright-->
+
+	<!--//copyright-->
+</body>
+
+</html>

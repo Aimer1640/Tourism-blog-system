@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <title>layui异步分页</title>
+    <link rel="stylesheet" href="__ADMIN__/layui/css/layui.css">
+    <script src="__ADMIN__/layui/layui.js"></script>
+</head>
+<body>
+
+<!--头部按钮 start-->
+<div style="clear: both;margin: 10px 10px 0 0;">
+    <div class="sx" style="float:left;">列表</div>
+</div>
+<!--头部按钮 end-->
+<!--分割线 start-->
+<div style="margin-top:10px;">
+    <hr class="layui-border-green hs">
+</div>
+<!--分割线 end-->
+<!--搜索框 start-->
+<div class="demoTable">
+    <!--表单 start-->
+    <form class="layui-form" action="" style="border: 1px solid #D8D8D8; padding: 10px 0 0 10px;" lay-filter="lift_point_add">
+        <div class="layui-form-item">
+            <div class="layui-inline">
+                <div class="layui-inline" style="width: 25%;">
+                    <input type="text" name="name" id="searchName"  placeholder="请输入搜索名称"  class="layui-input" size="40">
+                </div>
+                <div class="layui-inline" style="width: 25%;">
+                    <select name="status" id="status">
+                        <option value="">状态</option>
+                        <option value="1">启用</option>
+                        <option value="2">禁用</option>
+                    </select>
+                </div>
+                <div class="layui-inline">
+                    <input type="text" class="layui-input" id="time" name="time" placeholder="选择下单日期" size="30">
+                </div>
+            </div>
+            <div class="layui-inline" style="margin-left: -20px;">
+                <button class="layui-btn layui-btn-normal" id="getLiftPointList" lay-filter="search_btn" lay-submit>立即提交</button>
+                <button type="reset" class="layui-btn layui-btn-primary" style="width: 100px;">重置</button>
+            </div>
+        </div>
+    </form>
+    <!--表单 end-->
+</div>
+<!--搜索框 end-->
+<!--表格 start-->
+<div class="layui-tab layui-tab-brief" lay-filter="doTabBrief">
+    <div>
+        <ul class="layui-tab-title layui-inline">
+            <li class="layui-this">全部</li>
+            <li>栏目1</li>
+            <li>栏目2</li>
+            <li>栏目3</li>
+        </ul>
+    </div>
+    <div class="layui-tab-content"  >
+        <div class="layui-tab-item layui-show layui-fluid">
+            <table id="tab0" class="layui-hide" lay-filter="tab_0"></table>
+        </div>
+        <div class="layui-tab-item">
+            <table id="tab1" class="layui-hide" lay-filter="tab_1"></table>
+        </div>
+        <div class="layui-tab-item">
+            <table id="tab2" class="layui-hide" lay-filter="tab_2"></table>
+        </div>
+        <div class="layui-tab-item">
+            <table id="tab3" class="layui-hide" lay-filter="tab_3"></table>
+        </div>
+        <div id="paginate" style="text-align:right;"></div>
+    </div>
+</div>
+<!--表格 end-->
+<input type="hidden" id="pageSize" value="10">
+<input type="hidden" id="totalNum" value="0">
+<input type="hidden" id="curPage" value="1">
+</body>
+</html>
+<script>
+    layui.use(['table','upload', 'layer','form','laypage'], function(){
+        var table = layui.table;
+        var $ = layui.jquery
+            ,element = layui.element
+            ,layer = layui.layer
+            ,laypage = layui.laypage
+            ,laydate = layui.laydate
+            ,form = layui.form;
+
+        var listData;//定义全局变量，用来存储服务端返回的列表数据，此处的值是测试数据，实际开发中请将该值删除
+        var curTabIndex = 0;//定义当前tab，默认第一个
+        //时间插件
+        laydate.render({
+            elem: '#time'
+        });
+
+        //监听tab栏目切换
+        element.on('tab(doTabBrief)', function(data){
+            curTabIndex = data.index;
+            init(getParams());
+        });
+
+        //第一步：获取参数
+        function getParams() {
+            var params = {};//此处一定要用大括号，否则ajax请求数据时，可能会丢失参数
+            params['name'] = $("#searchName").val();
+            params['status'] = $("#status option:selected").val();
+            params['time'] = $("#time").val();
+            params['page'] = $("#curPage").val();
+            params['page_size'] = $("#pageSize").val();
+            var paramsStr = JSON.stringify(params);
+            return eval('(' + paramsStr + ')');
+        }
+
+        //第二步 定义列表查询函数
+        function send(postData){
+            $.ajax({
+                type: "POST",//请求的方式
+                url: "{:url(index/index)}",//填写自己的路由地址
+                data: postData,
+                dataType: "json",
+                async:false,
+                success: function (res) {
+                    if(res.status == 1) {
+                        listData = res.data.list;//为全局变量赋值
+                        $("#totalNum").val(res.data.paginate.totoal_count);//总条数
+                        if (data.length == 0) {
+                            layer.msg('暂无数据');return false;
+                        }
+                        laypage.render({
+                            elem: 'paginate'
+                            ,count: $("#totalNum").val()
+                            ,layout: ['count', 'limit', 'prev', 'page', 'next']
+                            ,theme: '#1E9FFF'
+                            ,jump: function(obj){
+                                $("#pageSize").val(obj.limit);
+                                $("#curPage").val(obj.curr);
+                            }
+                        });
+                    }else {
+                        layer.msg(res.msg);
+                    }
+
+                },
+                error:function(err){
+                    //失败
+                    layer.msg("数据不存在");
+                }
+            })
+        }
+
+        //第三步定义table体
+        var infoOptions = {
+            cellMinWidth: 80//全局定义常规单元格的最小宽度，layui 2.2.1 新增
+            ,cols: [[
+                {
+                    field: 'id', title: 'ID', width: 80, sort: true}
+                ,{field: 'username', title: '用户名', width: 120}
+                ,{field: 'email', title: '邮箱', minWidth: 150}
+                ,{field: 'sign', title: '签名', minWidth: 160}
+                ,{field: 'sex', title: '性别', width: 80, templet: function(res){
+                        console.log(res);
+                        if (res.sex == '男') {
+                            return '<span style="color:green;">'+res.sex+'</span>';
+                        }else if(res.sex == '女') {
+                            return '<span style="color:pink;">'+res.sex+'</span>';
+                        }
+                    }}
+                ,{field: 'city', title: '城市', width: 100}
+                ,{field: 'experience', title: '积分', width: 80, sort: true}
+            ]]
+            ,skin: 'line' //表格风格
+            ,even: true
+        };
+
+        //第四步：定义初始化表格函数
+        function init(postData) {
+            send(postData);
+            // 完成表格数据
+            var elem;
+            switch (curTabIndex) {
+                case 0:
+                    elem = "#tab0"; //全部
+                    break;
+                case 1:
+                    elem = "#tab1"; //栏目1
+                    break;
+                case 2:
+                    elem = "#tab2"; //栏目2
+                    break;
+                case 3:
+                    elem = "#tab3"; //栏目3
+                    break;
+            }
+            console.log(elem);
+            infoOptions.elem  = elem;
+            $.extend(infoOptions, {data: listData});
+            table.render(infoOptions);
+            listData=null;
+        }
+
+        //第五步：提交搜索表单时触发
+        form.on('submit(search_btn)', function(){
+            init(getParams());
+            return false;
+        });
+
+        //第五步：分页触发，首次进入列表页面同样会触发
+        laypage.render({
+            elem: 'paginate'
+            ,count: $("#totalNum").val()
+            ,layout: ['count', 'limit', 'prev', 'page', 'next']
+            ,theme: '#1E9FFF'
+            ,jump: function(obj){
+                var curPage = obj.curr;
+                var limit = obj.limit;
+                $("#pageSize").val(limit);
+                $("#curPage").val(curPage);
+                init(getParams());
+            }
+        });
+
+
+
+    });
+</script>

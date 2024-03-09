@@ -1,0 +1,154 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Azure Blog Ui Kit Flat Bootstarp Resposive Website Template| Home :: w3layouts</title>
+	<link href="__INDEX__/thing/css/bootstrap.css" rel='stylesheet' type='text/css' />
+	<!-- Custom Theme files -->
+	<link href="__INDEX__/thing/css/style.css" rel="stylesheet" type="text/css" media="all" />
+	<!-- Custom Theme files -->
+	<script src="__INDEX__/thing/js/jquery.min.js"></script>
+	<!-- Custom Theme files -->
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<meta name="keywords" content="Azure Blog Ui Kit Responsive web template, Bootstrap Web Templates, Flat Web Templates, Andriod Compatible web template,
+Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, SonyErricsson, Motorola web design" />
+
+	<!--webfont-->
+</head>
+<body>
+
+<div class="col-md-12">
+
+	<div class="header">
+		<div class="top-header">
+			<div class="navigation">
+				<div class="top-menu">
+					<span class="menu"><img src="__INDEX__/thing/images/menu.png" alt=""> </span>
+					<ul>
+						<li><a href="#">NEWS</a></li>
+						<li><a href="#">GALLERY</a></li>
+						<li><a href="#">BLOG</a></li>
+						<li><a href="#">ABOUT</a></li>
+						<li><a href="#">CONTACTS</a></li>
+					</ul>
+				</div>
+				<!--script for menu-->
+				<script>
+					$("span.menu").click(function(){
+						$(".top-menu ul").slideToggle(500, function(){
+						});
+					});
+				</script>
+				<!--script for menu-->
+			</div>
+			<div class="search">
+				<!-- start search-->
+				<div class="search-box">
+					<div id="sb-search" class="sb-search">
+						<form>
+							<input class="sb-search-input" placeholder="Enter your search term..." type="search" name="search" id="search">
+							<input class="sb-search-submit" type="submit" value="">
+							<span class="sb-icon-search"> </span>
+						</form>
+					</div>
+				</div>
+				<!-- search-scripts -->
+				<script src="__INDEX__/thing/js/classie.js"></script>
+				<script src="__INDEX__/thing/js/uisearch.js"></script>
+				<script>
+					new UISearch( document.getElementById( 'sb-search' ) );
+				</script>
+				<!-- //search-scripts -->
+			</div>
+			<div class="clearfix"></div>
+		</div>
+		<div class="logo text-center">
+			<a href="index.html"><img src="__INDEX__/thing/images/logo.png" alt="" /></a>
+		</div>
+	</div>
+</div>
+<div class="clearfix"></div>
+<div class="total-content">
+
+
+
+	<div class="middle-banner">
+		<span>politics</span>
+		<h3>Cameron Set to Return With U.K. Majority as SNP Sweeps Scotland</h3>
+	</div>
+	<div class="author-post">
+		<div class="col-md-2 post-by">
+			<h6>by</h6>
+			<a href="#">Robert Hutton,</a>
+			<a href="#">Svenja O'Donnell</a>and
+			<a href="#">Thomas Penny</a>
+			<div class="social-icons">
+				<ul>
+					<li><a href="#" class="facebook"></a></li>
+					<li><a href="#" class="twitter"></a></li>
+					<li><a href="#" class="googlepluse"></a></li>
+				</ul>
+			</div>
+		</div>
+		{volist name="body" id="body"}
+		<div class="col-md-8 article-text">
+			<h4> {$body.summary}</h4>
+<!--			<img src="{$body.content}" class="text-center" alt="" />-->
+			<img src="__INDEX__/thing/images/quote1.jpg" class="text-center" alt="" />
+			<h3>Qingdao Tourism</h3>
+			<img src="__INDEX__/thing/images/quote2.jpg" alt="" />
+		</div>
+		{/volist}
+
+		<div class="clearfix"></div>
+	</div>
+
+
+</div>
+<div class="col-md-12">
+	<div class="footer">
+		<div class="footer-top">
+			<h2>留言板</h2>
+			<form action="{:url('index/com')}" method="post" class="cmxform">
+				<div class="panel">
+					<div class="panel-body">
+						<div class="col-md-7">
+							<div class="form-group">
+								<div class="input-group"> <span class="input-group-addon">发布者</span>
+									<input type="text" name="username" value="" class="form-control">
+								</div>
+							</div>
+
+							<div class="form-group">
+								<div class="input-group"> <span class="input-group-addon">内容</span>
+									<textarea type="text" name="word" value="" class="form-control"></textarea>
+								</div>
+							</div>
+						</div>
+						<div class="col-md-7">
+							<div class="form-group">
+								<input type="submit" value="发布" class="submit btn btn-blue">
+							</div>
+						</div>
+					</div>
+				</div>
+			</form>
+		</div>
+		<div class="footer-bottom">
+			<div class="bottom-menu">
+				<ul>
+					<li><a href="#">News</a></li>
+					<li><a href="#">gallery</a></li>
+					<li><a href="#">blog</a></li>
+					<li><a href="#">about</a></li>
+					<li><a href="#">contacts</a></li>
+				</ul>
+			</div>
+			<div class="clearfix"></div>
+		</div>
+	</div>
+</div>
+
+</body>
+</html>
